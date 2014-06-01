@@ -36,7 +36,7 @@ $(BUILT_PYTHON_PACKAGES): $(SOURCE)
 	mkdir -p $(BUILT_PYTHON_PACKAGES)/usr/lib64/python2.7
 	sudo mv $(BUILT_PYTHON_PACKAGES).tmp/usr/lib/python2.7/site-packages $(BUILT_PYTHON_PACKAGES)/usr/lib/python2.7/
 	sudo mv $(BUILT_PYTHON_PACKAGES).tmp/usr/lib64/python2.7/site-packages $(BUILT_PYTHON_PACKAGES)/usr/lib64/python2.7/
-	rm -fr $(BUILT_PYTHON_PACKAGES).tmp
+	sudo rm -fr $(BUILT_PYTHON_PACKAGES).tmp
 
 #This list of packages: PRODUCTION & RELEASE. do not add debuggers, do not add compilers
 #do not add packages customized by strato, as at this build stage we do not use distrato
