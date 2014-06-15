@@ -4,15 +4,18 @@ BUILT_PYTHON_PACKAGES = build/pyprebuilt
 
 all: $(ROOTFS)
 
+submit: $(ROOTFS)
+	solvent submitproduct rootfs $<
+
 clean:
 	sudo rm -fr build
 
 $(ROOTFS): $(SOURCE) $(BUILT_PYTHON_PACKAGES)
 	echo "Cleaning"
 	-sudo rm -fr $(ROOTFS) $(ROOTFS).tmp
-	echo "Copying source"
+	echo "Bringing source"
 	-mkdir $(@D)
-	sudo cp -a $(SOURCE) $(ROOTFS).tmp
+	sudo solvent bring --repositoryBasename=rootfs-vanilla --product=rootfs --destination=$(ROOTFS).tmp
 	echo "Installing basic package list"
 	sudo chroot $(ROOTFS).tmp yum install $(RPMS_TO_INSTALL) --assumeyes
 	echo "Copying prebuilt python packages"
@@ -24,9 +27,9 @@ $(ROOTFS): $(SOURCE) $(BUILT_PYTHON_PACKAGES)
 $(BUILT_PYTHON_PACKAGES): $(SOURCE)
 	echo "Cleaning (build python packages)"
 	-sudo rm -fr $(BUILT_PYTHON_PACKAGES) $(BUILT_PYTHON_PACKAGES).tmp
-	echo "Copying source (build python packages)"
+	echo "Bringing source (build python packages)"
 	-mkdir $(@D)
-	sudo cp -a $(SOURCE) $(BUILT_PYTHON_PACKAGES).tmp
+	sudo solvent bring --repositoryBasename=rootfs-vanilla --product=rootfs --destination=$(BUILT_PYTHON_PACKAGES).tmp
 	echo "Installing build packages"
 	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp yum groupinstall "Development Tools" --assumeyes
 	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp yum install python-devel gcc-c++ --assumeyes
