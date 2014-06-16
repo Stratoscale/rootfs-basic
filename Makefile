@@ -47,6 +47,8 @@ RPMS_TO_INSTALL = \
     boost-program-options \
     boost-python \
     boost-system \
+    boost-regex \
+    boost-filesystem \
     ethtool \
     iperf \
     iproute \
