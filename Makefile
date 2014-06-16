@@ -1,4 +1,3 @@
-SOURCE = ../rootfs-vanilla/build/root
 ROOTFS = build/root
 BUILT_PYTHON_PACKAGES = build/pyprebuilt
 
@@ -10,7 +9,7 @@ submit: $(ROOTFS)
 clean:
 	sudo rm -fr build
 
-$(ROOTFS): $(SOURCE) $(BUILT_PYTHON_PACKAGES)
+$(ROOTFS): $(BUILT_PYTHON_PACKAGES)
 	echo "Cleaning"
 	-sudo rm -fr $(ROOTFS) $(ROOTFS).tmp
 	echo "Bringing source"
@@ -24,7 +23,7 @@ $(ROOTFS): $(SOURCE) $(BUILT_PYTHON_PACKAGES)
 	sudo chroot $(ROOTFS).tmp python -c "import zmq"
 	sudo mv $(ROOTFS).tmp $(ROOTFS)
 
-$(BUILT_PYTHON_PACKAGES): $(SOURCE)
+$(BUILT_PYTHON_PACKAGES):
 	echo "Cleaning (build python packages)"
 	-sudo rm -fr $(BUILT_PYTHON_PACKAGES) $(BUILT_PYTHON_PACKAGES).tmp
 	echo "Bringing source (build python packages)"
