@@ -23,7 +23,7 @@ $(ROOTFS): $(BUILT_PYTHON_PACKAGES)
 	echo "Copying prebuilt python packages"
 	sudo cp -a $(BUILT_PYTHON_PACKAGES)/usr $(ROOTFS).tmp/
 	echo "Verifying prebuilt python packages work"
-	sudo chroot $(ROOTFS).tmp python -c "import zmq"
+	sudo ./chroot.sh $(ROOTFS).tmp python -c "import zmq"
 	sudo mv $(ROOTFS).tmp $(ROOTFS)
 
 $(BUILT_PYTHON_PACKAGES):
@@ -36,7 +36,7 @@ $(BUILT_PYTHON_PACKAGES):
 	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp yum groupinstall "Development Tools" --assumeyes
 	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp yum install python-devel gcc-c++ --assumeyes
 	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp yum install python-pip python-devel --assumeyes
-	sudo chroot $(BUILT_PYTHON_PACKAGES).tmp pip install $(PYTHON_PACKAGES_TO_INSTALL)
+	sudo ./chroot.sh $(BUILT_PYTHON_PACKAGES).tmp pip install $(PYTHON_PACKAGES_TO_INSTALL)
 	mkdir -p $(BUILT_PYTHON_PACKAGES)/usr/lib/python2.7
 	mkdir -p $(BUILT_PYTHON_PACKAGES)/usr/lib64/python2.7
 	sudo mv $(BUILT_PYTHON_PACKAGES).tmp/usr/lib/python2.7/site-packages $(BUILT_PYTHON_PACKAGES)/usr/lib/python2.7/
@@ -70,7 +70,7 @@ RPMS_TO_INSTALL = \
 #this makefile compiles them without contaminating the main filesystem image with
 #development tools. Do not add openstack.
 PYTHON_PACKAGES_TO_INSTALL = \
-	"pyzmq==14.0.1" \
+	"pyzmq==14.3.1" \
 	"simplejson==3.3.1" \
 	"tornado==3.1.1" \
 	"xmltodict==0.8.3" \
