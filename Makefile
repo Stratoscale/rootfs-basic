@@ -24,6 +24,7 @@ $(ROOTFS): $(BUILT_PYTHON_PACKAGES)
 	sudo cp -a $(BUILT_PYTHON_PACKAGES)/usr $(ROOTFS).tmp/
 	echo "Verifying prebuilt python packages work"
 	sudo ./chroot.sh $(ROOTFS).tmp python -c "import zmq"
+	sudo rm -fr $(ROOTFS).tmp/tmp/* $(ROOTFS).tmp/var/tmp/*
 	sudo mv $(ROOTFS).tmp $(ROOTFS)
 
 $(BUILT_PYTHON_PACKAGES):
