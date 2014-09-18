@@ -61,6 +61,7 @@ RPMS_TO_INSTALL = \
     python-paramiko \
     python-pip \
     python-websockify \
+    python-greenlet \
     tar \
     tcpdump \
     xfsprogs \
