@@ -76,7 +76,7 @@ PYTHON_PACKAGES_TO_INSTALL = \
 	"simplejson==3.3.1" \
 	"tornado==3.1.1" \
 	"xmltodict==0.8.3" \
-	"six==1.4.1" \
+	"six==1.8.0" \
 	"jinja2==2.7.1" \
 	"pyyaml==3.10" \
 	"psutil==1.2.1" \
