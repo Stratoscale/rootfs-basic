@@ -85,4 +85,5 @@ PYTHON_PACKAGES_TO_INSTALL = \
 	"stevedore==0.14.1" \
 	"taskflow==0.1.3" \
 	"twisted==13.2.0" \
-	"requests-toolbelt==0.2.0"
+	"requests-toolbelt==0.2.0" \
+	"netifaces==0.10.4"
