@@ -20,10 +20,13 @@ $(ROOTFS): $(BUILT_PYTHON_PACKAGES)
 	sudo -E solvent bring --repositoryBasename=rootfs-vanilla --product=rootfs --destination=$(ROOTFS).tmp
 	echo "Installing basic package list"
 	sudo chroot $(ROOTFS).tmp yum install $(RPMS_TO_INSTALL) --assumeyes
+	echo "Removing defective python-six version"
+	sudo rm -fr lib/python2.7/site-packages/six-1.4.1-py2.7.egg-info lib/python2.7/site-packages/six.pyc lib/python2.7/site-packages/six.pyo lib/python2.7/site-packages/six-1.3.0-py2.7.egg-info lib/python2.7/site-packages/six.py
 	echo "Copying prebuilt python packages"
 	sudo cp -a $(BUILT_PYTHON_PACKAGES)/usr $(ROOTFS).tmp/
 	echo "Verifying prebuilt python packages work"
 	sudo ./chroot.sh $(ROOTFS).tmp python -c "import zmq"
+	sudo ./chroot.sh $(ROOTFS).tmp sh -c 'if [ `python -c "import six; print six.__version__"` != "1.8.0" ]; then echo python six version does not match; fi'
 	sudo rm -fr $(ROOTFS).tmp/tmp/* $(ROOTFS).tmp/var/tmp/*
 	sudo mv $(ROOTFS).tmp $(ROOTFS)
 
@@ -62,6 +65,7 @@ RPMS_TO_INSTALL = \
     python-pip \
     python-websockify \
     python-greenlet \
+    python-six \
     tar \
     tcpdump \
     xfsprogs \
@@ -86,4 +90,6 @@ PYTHON_PACKAGES_TO_INSTALL = \
 	"taskflow==0.1.3" \
 	"twisted==13.2.0" \
 	"requests-toolbelt==0.2.0" \
-	"netifaces==0.10.4"
+	"netifaces==0.10.4" \
+	"netaddr==0.7.12" \
+	"bunch==1.0.1"
