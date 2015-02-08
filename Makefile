@@ -70,6 +70,10 @@ RPMS_TO_INSTALL = \
     tcpdump \
     xfsprogs \
     xmlrpc-c-c++ \
+    pciutils \
+    openvswitch \
+    nc \
+    unzip \
     redhat-lsb-core
 
 #This list of python packages: basic packages, or packages that need binary compilation.
@@ -92,4 +96,5 @@ PYTHON_PACKAGES_TO_INSTALL = \
 	"requests-toolbelt==0.2.0" \
 	"netifaces==0.10.4" \
 	"netaddr==0.7.12" \
-	"bunch==1.0.1"
+	"bunch==1.0.1" \
+	"rpdb==0.1.4"
